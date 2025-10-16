@@ -13,7 +13,7 @@ export default function HomePage() {
   const [nepseIndex, setNepseIndex] = useState<NEPSEIndexData | null>(null);
   const [stocks, setStocks] = useState<NEPSEStockData[]>([]);
   const [indices, setIndices] = useState<NEPSEIndicesData[]>([]);
-  const [chartData, setChartData] = useState<any>(null);
+  const [chartData, setChartData] = useState<Record<string, unknown> | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -176,7 +176,7 @@ export default function HomePage() {
             </h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
               Comprehensive market analysis with all chart types, real-time data, historical trends, 
-              and detailed insights into Nepal's stock market performance.
+              and detailed insights into Nepal&apos;s stock market performance.
             </p>
           </div>
           

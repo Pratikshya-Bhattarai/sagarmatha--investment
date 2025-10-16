@@ -13,7 +13,7 @@ export const useAnalytics = () => {
   }, [])
 
   // Track NEPSE interactions
-  const trackNEPSEInteraction = useCallback((action: string, data?: any) => {
+  const trackNEPSEInteraction = useCallback((action: string, data?: Record<string, unknown>) => {
     analytics.trackNEPSEInteraction(action, data)
   }, [])
 
@@ -23,7 +23,7 @@ export const useAnalytics = () => {
   }, [])
 
   // Track user engagement
-  const trackEngagement = useCallback((engagementType: string, details?: any) => {
+  const trackEngagement = useCallback((engagementType: string, details?: Record<string, unknown>) => {
     analytics.trackEngagement(engagementType, details)
   }, [])
 
@@ -65,7 +65,7 @@ export const useAnalytics = () => {
     errorTracking.trackError(error, context)
   }, [])
 
-  const trackAPIError = useCallback((endpoint: string, error: any) => {
+  const trackAPIError = useCallback((endpoint: string, error: Record<string, unknown>) => {
     errorTracking.trackAPIError(endpoint, error)
   }, [])
 

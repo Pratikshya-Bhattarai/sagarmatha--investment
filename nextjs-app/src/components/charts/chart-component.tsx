@@ -32,8 +32,8 @@ ChartJS.register(
 
 interface ChartProps {
   type: 'line' | 'bar' | 'doughnut'
-  data: any
-  options?: any
+  data: Record<string, unknown>
+  options?: Record<string, unknown>
   title?: string
   className?: string
 }

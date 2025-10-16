@@ -31,9 +31,9 @@ ChartJS.register(
 );
 
 interface NEPSEData {
-  indices: any[];
-  stocks: any[];
-  historical: any[];
+  indices: Array<Record<string, unknown>>;
+  stocks: Array<Record<string, unknown>>;
+  historical: Array<Record<string, unknown>>;
   last_updated: string;
   source: string;
   message: string;
@@ -257,7 +257,7 @@ export default function NEPSEChartsSection() {
             NEPSE Market Analytics
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Comprehensive market analysis with interactive charts, real-time data, and detailed insights into Nepal's stock market performance.
+            Comprehensive market analysis with interactive charts, real-time data, and detailed insights into Nepal&apos;s stock market performance.
           </p>
         </div>
 

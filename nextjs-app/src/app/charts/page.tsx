@@ -16,7 +16,7 @@ export default function ChartsPage() {
               NEPSE Market Analytics
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Comprehensive market analysis with interactive charts, real-time data, and detailed insights into Nepal's stock market performance.
+              Comprehensive market analysis with interactive charts, real-time data, and detailed insights into Nepal&apos;s stock market performance.
             </p>
           </div>
         </div>

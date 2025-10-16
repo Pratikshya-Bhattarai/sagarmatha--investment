@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -50,7 +50,7 @@ export default function CandlestickChart({ data }: CandlestickChartProps) {
     }
 
     const prices = data.datasets[0].data;
-    const candlestickData = prices.map((close, index) => {
+    const candlestickData = prices.map((close) => {
       // Generate realistic OHLC data based on close price
       const volatility = 0.02; // 2% volatility
       const open = close * (1 + (Math.random() - 0.5) * volatility);
@@ -71,10 +71,10 @@ export default function CandlestickChart({ data }: CandlestickChartProps) {
         {
           label: 'NEPSE Index',
           data: candlestickData,
-          backgroundColor: candlestickData.map((candle, index) => 
+          backgroundColor: candlestickData.map((candle) => 
             candle.close >= candle.open ? 'rgba(34, 197, 94, 0.8)' : 'rgba(239, 68, 68, 0.8)'
           ),
-          borderColor: candlestickData.map((candle, index) => 
+          borderColor: candlestickData.map((candle) => 
             candle.close >= candle.open ? 'rgb(34, 197, 94)' : 'rgb(239, 68, 68)'
           ),
           borderWidth: 1,
@@ -99,7 +99,7 @@ export default function CandlestickChart({ data }: CandlestickChartProps) {
       tooltip: {
         callbacks: {
           label: function(context) {
-            const data = context.raw as any;
+            const data = context.raw as Record<string, unknown>;
             if (data && typeof data === 'object' && data.open !== undefined) {
               return [
                 `Open: ${data.open.toFixed(2)}`,
@@ -135,7 +135,7 @@ export default function CandlestickChart({ data }: CandlestickChartProps) {
   // Custom plugin for candlestick rendering
   const candlestickPlugin = {
     id: 'candlestick',
-    beforeDraw: (chart: any) => {
+    beforeDraw: (chart: Record<string, unknown>) => {
       const ctx = chart.ctx;
       const chartArea = chart.chartArea;
       
@@ -148,7 +148,7 @@ export default function CandlestickChart({ data }: CandlestickChartProps) {
 
       ctx.save();
       
-      data.forEach((candle: any, index: number) => {
+      data.forEach((candle: Record<string, unknown>, index: number) => {
         if (!candle || typeof candle !== 'object') return;
         
         const x = meta.data[index].x;

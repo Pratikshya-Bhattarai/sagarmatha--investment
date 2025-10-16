@@ -33,7 +33,7 @@ const NEPSE_DATA_SOURCES = {
 
 interface NEPSEApiResponse {
   success: boolean
-  data?: any
+  data?: unknown
   error?: string
   source?: string
 }
@@ -133,7 +133,7 @@ async function fetchNEPSEHistorical(): Promise<NEPSEApiResponse> {
   }
 }
 
-async function storeDataInSupabase(data: any, tableName: string) {
+async function storeDataInSupabase(data: unknown, tableName: string) {
   try {
     const { data: result, error } = await supabase
       .from(tableName)
@@ -161,7 +161,13 @@ export async function GET(request: NextRequest) {
     const type = searchParams.get('type') || 'all'
     const store = searchParams.get('store') === 'true'
 
-    const results: any = {
+    const results: {
+      timestamp: string
+      type: string
+      data: Record<string, unknown>
+      errors: Array<{ type: string; error?: string; source?: string }>
+      fallback?: boolean
+    } = {
       timestamp: new Date().toISOString(),
       type,
       data: {},

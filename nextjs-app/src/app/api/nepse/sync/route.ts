@@ -27,7 +27,7 @@ async function syncNEPSEIndices(): Promise<SyncResult> {
     // Transform and store data
     const indicesData = Array.isArray(result.data.indices) ? result.data.indices : [result.data.indices]
     
-    const transformedData = indicesData.map((index: any) => ({
+    const transformedData = indicesData.map((index: Record<string, unknown>) => ({
       name: index.name || index.Name || 'NEPSE Index',
       symbol: index.symbol || index.Symbol || 'NEPSE',
       current: parseFloat(index.current || index.Current || index.value || 0),
@@ -87,7 +87,7 @@ async function syncNEPSEStocks(): Promise<SyncResult> {
     // Transform and store data
     const stocksData = Array.isArray(result.data.stocks) ? result.data.stocks : [result.data.stocks]
     
-    const transformedData = stocksData.map((stock: any) => ({
+    const transformedData = stocksData.map((stock: Record<string, unknown>) => ({
       symbol: stock.symbol || stock.Symbol || stock.ticker,
       company_name: stock.company_name || stock.Company_Name || stock.name || stock.Name,
       sector: stock.sector || stock.Sector || 'Unknown',
@@ -152,7 +152,7 @@ async function syncNEPSEHistorical(): Promise<SyncResult> {
     // Transform and store data
     const historicalData = Array.isArray(result.data.historical) ? result.data.historical : [result.data.historical]
     
-    const transformedData = historicalData.map((day: any) => ({
+    const transformedData = historicalData.map((day: Record<string, unknown>) => ({
       date: day.date || day.Date || new Date().toISOString().split('T')[0],
       open: parseFloat(day.open || day.Open || 0),
       high: parseFloat(day.high || day.High || 0),

@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { ChartComponent, generatePortfolioData, generateAssetAllocationData } from "@/components/charts/chart-component"
 import { TradingViewMiniChart } from "@/components/charts/tradingview-widget"
-import { NEPSERealData } from "@/components/charts/nepse-real-data"
+// import { NEPSERealData } from "@/components/charts/nepse-real-data"
 import { NEPSEStaticData } from "@/components/charts/nepse-static-data"
 
 export function ChartsSection() {

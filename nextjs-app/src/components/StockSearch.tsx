@@ -35,7 +35,7 @@ export default function StockSearch() {
     try {
       const response = await apiClient.request<StockPriceData>(`/stocks/latest_price/?symbol=${symbol.toUpperCase()}`);
       setStockData(response.data);
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message || 'Failed to fetch stock data');
     } finally {
       setLoading(false);

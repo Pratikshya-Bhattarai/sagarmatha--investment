@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Line, Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -29,9 +29,9 @@ ChartJS.register(
 );
 
 interface NEPSEData {
-  indices: any[];
-  stocks: any[];
-  historical: any[];
+  indices: Array<Record<string, unknown>>;
+  stocks: Array<Record<string, unknown>>;
+  historical: Array<Record<string, unknown>>;
   last_updated: string;
   source: string;
   message: string;

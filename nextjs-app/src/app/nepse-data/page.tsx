@@ -18,7 +18,7 @@ export default function NEPSEDataPage() {
             </h1>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
               Comprehensive NEPSE market analysis with all chart types, real-time data, historical trends, 
-              sector analysis, and detailed stock performance metrics for Nepal's stock market.
+              sector analysis, and detailed stock performance metrics for Nepal&apos;s stock market.
             </p>
           </div>
         </div>

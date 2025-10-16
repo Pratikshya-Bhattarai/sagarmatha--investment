@@ -210,19 +210,19 @@ export function NEPSERealData() {
           high_52w: 3200.50,
           low_52w: 2400.25
         },
-        sensitive_index: overviewData.indices?.find((idx: any) => idx.symbol === 'SENSITIVE') || {
+        sensitive_index: overviewData.indices?.find((idx: Record<string, unknown>) => idx.symbol === 'SENSITIVE') || {
           current: 567.89,
           change: 0,
           change_percent: 0
         },
-        float_index: overviewData.indices?.find((idx: any) => idx.symbol === 'FLOAT') || {
+        float_index: overviewData.indices?.find((idx: Record<string, unknown>) => idx.symbol === 'FLOAT') || {
           current: 198.45,
           change: 0,
           change_percent: 0
         },
         market_cap: '3.8T',
         total_turnover: '1.5B',
-        total_volume: overviewData.stocks?.reduce((sum: number, stock: any) => sum + stock.volume, 0) || 0,
+        total_volume: overviewData.stocks?.reduce((sum: number, stock: Record<string, unknown>) => sum + (stock.volume as number), 0) || 0,
         total_trades: Math.floor(Math.random() * 5000) + 12000,
         last_updated: overviewData.last_updated || new Date().toISOString()
       }
@@ -255,19 +255,19 @@ export function NEPSERealData() {
     const interval = setInterval(fetchNEPSEData, 60000)
     
     return () => clearInterval(interval)
-  }, [])
+  }, [fetchNEPSEData])
 
   const formatNumber = (num: number) => {
     return new Intl.NumberFormat('en-US').format(num)
   }
 
-  const formatCurrency = (num: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'NPR',
-      minimumFractionDigits: 2
-    }).format(num)
-  }
+  // const formatCurrency = (num: number) => {
+  //   return new Intl.NumberFormat('en-US', {
+  //     style: 'currency',
+  //     currency: 'NPR',
+  //     minimumFractionDigits: 2
+  //   }).format(num)
+  // }
 
   if (loading && !marketData) {
     return (
@@ -423,7 +423,7 @@ export function NEPSERealData() {
               </tr>
             </thead>
             <tbody>
-              {historicalData.slice(0, 10).map((day, index) => (
+              {historicalData.slice(0, 10).map((day) => (
                 <tr key={day.date} className="border-b border-slate-100">
                   <td className="py-2 text-slate-600">{day.date}</td>
                   <td className="py-2 text-right font-semibold">Rs. {day.open.toFixed(2)}</td>

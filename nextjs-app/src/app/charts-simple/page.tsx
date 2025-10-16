@@ -1,6 +1,7 @@
 "use client"
 
 import React from 'react'
+import Link from 'next/link'
 
 export default function ChartsSimple() {
   return (
@@ -13,7 +14,7 @@ export default function ChartsSimple() {
               <h1 className="text-2xl font-bold text-slate-900">Sagarmatha Investments</h1>
             </div>
             <nav className="hidden md:flex space-x-8">
-              <a href="/" className="text-slate-600 hover:text-slate-900">Home</a>
+              <Link href="/" className="text-slate-600 hover:text-slate-900">Home</Link>
               <a href="#charts" className="text-slate-600 hover:text-slate-900">Charts</a>
               <a href="#contact" className="text-slate-600 hover:text-slate-900">Contact</a>
             </nav>

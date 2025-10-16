@@ -18,7 +18,7 @@ export const VERCEL_ANALYTICS_CONFIG = {
 }
 
 // Custom event tracking for Sagarmatha Investments
-export const trackEvent = (eventName: string, parameters?: Record<string, any>) => {
+export const trackEvent = (eventName: string, parameters?: Record<string, unknown>) => {
   // Google Analytics event tracking
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', eventName, {
@@ -46,7 +46,7 @@ export const analytics = {
   },
 
   // Track NEPSE data interactions
-  trackNEPSEInteraction: (action: string, data?: any) => {
+  trackNEPSEInteraction: (action: string, data?: Record<string, unknown>) => {
     trackEvent('nepse_interaction', {
       action,
       data_type: data?.type || 'unknown',
@@ -63,7 +63,7 @@ export const analytics = {
   },
 
   // Track user engagement
-  trackEngagement: (engagementType: string, details?: any) => {
+  trackEngagement: (engagementType: string, details?: Record<string, unknown>) => {
     trackEvent('user_engagement', {
       engagement_type: engagementType,
       details,
@@ -143,7 +143,7 @@ export const errorTracking = {
   },
 
   // Track API errors
-  trackAPIError: (endpoint: string, error: any) => {
+  trackAPIError: (endpoint: string, error: Record<string, unknown>) => {
     trackEvent('api_error', {
       endpoint,
       error_message: error.message || 'Unknown error',
@@ -178,10 +178,12 @@ export const initializeAnalytics = () => {
 }
 
 // Export all analytics utilities
-export default {
+const analyticsUtils = {
   trackEvent,
   analytics,
   performanceTracking,
   errorTracking,
   initializeAnalytics,
 }
+
+export default analyticsUtils

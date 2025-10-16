@@ -58,8 +58,9 @@ export function TradingViewWidget({
     containerRef.current.appendChild(script)
 
     return () => {
-      if (containerRef.current) {
-        containerRef.current.innerHTML = ''
+      const currentContainer = containerRef.current
+      if (currentContainer) {
+        currentContainer.innerHTML = ''
       }
     }
   }, [symbol, interval, theme, autosize])
@@ -110,8 +111,9 @@ export function TradingViewMiniChart({
     containerRef.current.appendChild(script)
 
     return () => {
-      if (containerRef.current) {
-        containerRef.current.innerHTML = ''
+      const currentContainer = containerRef.current
+      if (currentContainer) {
+        currentContainer.innerHTML = ''
       }
     }
   }, [symbol, theme])
@@ -290,8 +292,9 @@ export function TradingViewMarketOverview({
     containerRef.current.appendChild(script)
 
     return () => {
-      if (containerRef.current) {
-        containerRef.current.innerHTML = ''
+      const currentContainer = containerRef.current
+      if (currentContainer) {
+        currentContainer.innerHTML = ''
       }
     }
   }, [theme])

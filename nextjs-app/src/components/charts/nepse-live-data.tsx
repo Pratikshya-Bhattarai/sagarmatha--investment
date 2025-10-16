@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Line, Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -48,7 +48,7 @@ export default function NEPSELiveData({ className = '' }: NEPSELiveDataProps) {
     // Set up auto-refresh every 5 minutes
     const interval = setInterval(fetchData, 5 * 60 * 1000);
     return () => clearInterval(interval);
-  }, [selectedTimeframe]);
+  }, [selectedTimeframe, fetchData]);
 
   const fetchData = async () => {
     try {
@@ -234,7 +234,7 @@ export default function NEPSELiveData({ className = '' }: NEPSELiveDataProps) {
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-lg font-semibold text-green-600 mb-4">Top Gainers</h3>
           <div className="space-y-3">
-            {topGainers.map((stock, index) => (
+            {topGainers.map((stock) => (
               <div key={stock.id} className="flex justify-between items-center">
                 <div>
                   <p className="font-medium">{stock.symbol}</p>
@@ -257,7 +257,7 @@ export default function NEPSELiveData({ className = '' }: NEPSELiveDataProps) {
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-lg font-semibold text-red-600 mb-4">Top Losers</h3>
           <div className="space-y-3">
-            {topLosers.map((stock, index) => (
+            {topLosers.map((stock) => (
               <div key={stock.id} className="flex justify-between items-center">
                 <div>
                   <p className="font-medium">{stock.symbol}</p>
@@ -280,7 +280,7 @@ export default function NEPSELiveData({ className = '' }: NEPSELiveDataProps) {
         <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-lg font-semibold text-blue-600 mb-4">Most Active</h3>
           <div className="space-y-3">
-            {mostActive.map((stock, index) => (
+            {mostActive.map((stock) => (
               <div key={stock.id} className="flex justify-between items-center">
                 <div>
                   <p className="font-medium">{stock.symbol}</p>

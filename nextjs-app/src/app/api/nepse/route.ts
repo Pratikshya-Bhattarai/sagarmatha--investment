@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
-import { getFallbackNEPSEData, isSupabaseConfigured } from '@/lib/nepse-data'
+import { getFallbackNEPSEData } from '@/lib/nepse-data'
 
 export async function GET(request: NextRequest) {
   try {

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Line, Bar, Doughnut } from 'react-chartjs-2';
+import { Line, Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -31,9 +31,9 @@ ChartJS.register(
 );
 
 interface NEPSELiveData {
-  indices: any[];
-  stocks: any[];
-  historical: any[];
+  indices: Array<Record<string, unknown>>;
+  stocks: Array<Record<string, unknown>>;
+  historical: Array<Record<string, unknown>>;
   last_updated: string;
   source: string;
   message: string;
@@ -184,10 +184,10 @@ export default function NEPSELiveDashboard() {
       acc[stock.sector].count += 1;
       acc[stock.sector].avgChange = acc[stock.sector].total / acc[stock.sector].count;
       return acc;
-    }, {} as Record<string, any>);
+    }, {} as Record<string, Record<string, unknown>>);
     
     const sectors = Object.keys(sectorData);
-    const avgChanges = Object.values(sectorData).map((sector: any) => sector.avgChange);
+    const avgChanges = Object.values(sectorData).map((sector: Record<string, unknown>) => sector.avgChange as number);
     
     return {
       labels: sectors,

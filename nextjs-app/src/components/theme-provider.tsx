@@ -31,7 +31,7 @@ export function ThemeProvider({
   storageKey = "theme-preference",
   attribute = "data-theme",
   enableSystem = true,
-  disableTransitionOnChange: _disableTransitionOnChange = false,
+  disableTransitionOnChange = false,
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = React.useState<Theme>(
