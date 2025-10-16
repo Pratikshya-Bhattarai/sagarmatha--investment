@@ -1,365 +1,240 @@
-# 🚀 Complete NEPSE Application Deployment Guide
+# 🏔️ Complete Deployment Guide - Sagarmatha Investments
 
-## 📋 Overview
-This guide will help you deploy a complete NEPSE (Nepal Stock Exchange) application with:
-- **Frontend**: Next.js with React components and candlestick charts
-- **Backend**: Django REST API on PythonAnywhere
-- **Database**: Supabase PostgreSQL
-- **Features**: Real-time stock data, candlestick charts, stock search by symbol
+## 🚀 Full-Stack NEPSE Analytics Platform
 
-## 🗄️ Step 1: Set Up Supabase Database
+Your complete investment analytics platform with Next.js frontend, Django backend, and Supabase database.
 
-### 1.1 Create Supabase Project
-1. Go to [supabase.com](https://supabase.com)
-2. Create a new project named `nepse-market-data`
-3. Choose your region and set a strong database password
-4. Wait for project creation (2-3 minutes)
+### 📊 **What's Included**
 
-### 1.2 Configure Database Schema
-1. Go to **SQL Editor** in your Supabase dashboard
-2. Run the SQL script from `SUPABASE_DATABASE_SCHEMA.sql`:
+#### **✅ Complete NEPSE Data Charts**
+- **📈 Line Charts** - NEPSE index trends and price movements
+- **📊 Bar Charts** - Trading volume and turnover analysis
+- **🥧 Doughnut Charts** - Sector distribution and market breakdown
+- **🍰 Pie Charts** - Market cap distribution
+- **🔍 Scatter Charts** - Price vs volume correlation analysis
+- **📋 Data Tables** - Sortable stock listings with performance metrics
 
-```sql
--- Enable necessary extensions
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+#### **⚡ Live NEPSE Data Features**
+- **Real-time Updates** - Auto-refresh every 2-5 minutes
+- **Live Market Statistics** - Total stocks, gainers, losers
+- **Live Price Movement** - Recent NEPSE index trends
+- **Live Volume Analysis** - Current trading volume patterns
+- **Top Performers** - Live top gainers and losers
+- **Sector Performance** - Real-time sector analysis
 
--- NEPSE Index table
-CREATE TABLE nepse_index (
-    id SERIAL PRIMARY KEY,
-    date DATE NOT NULL,
-    open_price DECIMAL(10,2) NOT NULL,
-    high_price DECIMAL(10,2) NOT NULL,
-    low_price DECIMAL(10,2) NOT NULL,
-    close_price DECIMAL(10,2) NOT NULL,
-    volume BIGINT NOT NULL,
-    turnover BIGINT NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    UNIQUE(date)
-);
+### 🏗️ **Architecture Overview**
 
--- NEPSE Stocks table
-CREATE TABLE nepse_stocks (
-    id SERIAL PRIMARY KEY,
-    symbol VARCHAR(10) NOT NULL UNIQUE,
-    company_name VARCHAR(255) NOT NULL,
-    sector VARCHAR(100),
-    current_price DECIMAL(10,2),
-    change_amount DECIMAL(10,2),
-    change_percent DECIMAL(5,2),
-    volume BIGINT,
-    turnover BIGINT,
-    high_52w DECIMAL(10,2),
-    low_52w DECIMAL(10,2),
-    market_cap VARCHAR(50),
-    pe_ratio DECIMAL(5,2),
-    last_trade_time TIMESTAMP,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
--- NEPSE Indices table
-CREATE TABLE nepse_indices (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    symbol VARCHAR(20) NOT NULL,
-    current_value DECIMAL(10,2),
-    change_amount DECIMAL(10,2),
-    change_percent DECIMAL(5,2),
-    high_52w DECIMAL(10,2),
-    low_52w DECIMAL(10,2),
-    date DATE,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    UNIQUE(name, date)
-);
-
--- Data update logs
-CREATE TABLE data_update_logs (
-    id SERIAL PRIMARY KEY,
-    update_type VARCHAR(50) NOT NULL,
-    status VARCHAR(20) NOT NULL,
-    message TEXT,
-    records_updated INTEGER DEFAULT 0,
-    started_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    completed_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
--- Enable Row Level Security (RLS)
-ALTER TABLE nepse_index ENABLE ROW LEVEL SECURITY;
-ALTER TABLE nepse_stocks ENABLE ROW LEVEL SECURITY;
-ALTER TABLE nepse_indices ENABLE ROW LEVEL SECURITY;
-ALTER TABLE data_update_logs ENABLE ROW LEVEL SECURITY;
-
--- Create policies for public read access
-CREATE POLICY "Allow public read access" ON nepse_index FOR SELECT USING (true);
-CREATE POLICY "Allow public read access" ON nepse_stocks FOR SELECT USING (true);
-CREATE POLICY "Allow public read access" ON nepse_indices FOR SELECT USING (true);
-CREATE POLICY "Allow public read access" ON data_update_logs FOR SELECT USING (true);
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Vercel        │    │  PythonAnywhere │    │    Supabase      │
+│   (Frontend)    │◄──►│   (Backend)     │◄──►│   (Database)     │
+│                 │    │                 │    │                 │
+│ • Next.js 15    │    │ • Django REST   │    │ • PostgreSQL    │
+│ • React Charts  │    │ • NEPSE APIs    │    │ • Real-time     │
+│ • Vercel Analytics│  │ • MySQL DB      │    │ • Auth          │
+│ • PWA Support   │    │ • Redis Cache   │    │ • API Integration│
+└─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
-### 1.3 Get Database Credentials
-1. Go to **Settings** → **Database** in your Supabase project
-2. Copy these details:
-   - **Host**: `db.xxxxx.supabase.co`
-   - **Database**: `postgres`
-   - **Username**: `postgres`
-   - **Password**: (your database password)
-   - **Port**: `5432`
+### 🚀 **Deployment Steps**
 
-## 🐍 Step 2: Deploy Django Backend to PythonAnywhere
+#### **Step 1: Vercel Frontend Deployment**
 
-### 2.1 Access PythonAnywhere
-1. Go to [pythonanywhere.com](https://www.pythonanywhere.com)
-2. Login with your credentials
-3. Go to **Consoles** → **Bash**
+1. **Connect to Vercel**
+   - Go to [Vercel.com](https://vercel.com)
+   - Import GitHub repository: `Pratikshya-Bhattarai/sagarmatha--investment`
+   - Select `nextjs-app` as root directory
 
-### 2.2 Clone and Set Up Backend
-```bash
-# Clone your repository
-git clone https://github.com/your-username/sagarmatha-investments.git
-cd sagarmatha-investments/django-backend
+2. **Configure Environment Variables**
+   ```env
+   NEXT_PUBLIC_GA_MEASUREMENT_ID=your-ga-measurement-id
+   NEXT_PUBLIC_SUPABASE_URL=your-supabase-project-url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+   NEXT_PUBLIC_API_URL=https://your-backend.pythonanywhere.com/api/v1
+   ```
 
-# Create virtual environment
-python3.10 -m venv venv
-source venv/bin/activate
+3. **Deploy**
+   - Vercel will automatically build and deploy
+   - Vercel Analytics will be enabled automatically
+   - Custom domain can be configured
 
-# Install dependencies
-pip install -r requirements-pythonanywhere.txt
+#### **Step 2: PythonAnywhere Backend Deployment**
+
+1. **Upload Backend Code**
+   - Upload `django-backend` folder to PythonAnywhere
+   - Set up virtual environment
+   - Install requirements: `pip install -r requirements_production.txt`
+
+2. **Configure Database**
+   - Create MySQL database
+   - Run migrations: `python manage.py migrate`
+   - Create superuser: `python manage.py createsuperuser`
+
+3. **Configure WSGI**
+   - Set WSGI file: `wsgi_production.py`
+   - Configure static files
+   - Set up environment variables
+
+4. **Environment Variables**
+   ```env
+   SECRET_KEY=your-super-secret-key
+   DEBUG=False
+   ALLOWED_HOSTS=your-backend.pythonanywhere.com
+   DB_NAME=sagarmatha_investments
+   DB_USER=your_db_user
+   DB_PASSWORD=your_db_password
+   ```
+
+#### **Step 3: Supabase Database Setup**
+
+1. **Create Supabase Project**
+   - Go to [Supabase.com](https://supabase.com)
+   - Create new project
+   - Note down URL and API keys
+
+2. **Configure Database Schema**
+   - Run SQL scripts from `SUPABASE_DATABASE_SCHEMA.sql`
+   - Set up tables for NEPSE data
+   - Configure real-time subscriptions
+
+3. **Authentication Setup**
+   - Configure user authentication
+   - Set up user management
+   - Configure API access
+
+### 📱 **Available Pages and Features**
+
+#### **Frontend Routes:**
+- **`/`** - Homepage with NEPSE data showcase
+- **`/charts`** - Comprehensive market analytics dashboard
+- **`/nepse-live`** - Live NEPSE market data with real-time updates
+- **`/nepse-data`** - Complete NEPSE data with all chart types
+- **`/api-docs`** - API documentation
+- **`/about`** - Company information
+- **`/services`** - Investment services
+- **`/contact`** - Contact information
+
+#### **Backend API Endpoints:**
+- **`/api/v1/`** - API root
+- **`/api/v1/index/`** - NEPSE index data
+- **`/api/v1/stocks/`** - Stock data with filtering
+- **`/api/v1/indices/`** - Market indices
+- **`/api/v1/overview/overview/`** - Market overview
+- **`/api/v1/analytics/market_summary/`** - Market summary
+- **`/api/v1/reports/daily_report/`** - Daily reports
+
+### 🔧 **Configuration Files**
+
+#### **Vercel Configuration (`vercel.json`)**
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "env": {
+    "NEXT_PUBLIC_GA_MEASUREMENT_ID": "@next_public_ga_measurement_id",
+    "NEXT_PUBLIC_SUPABASE_URL": "@next_public_supabase_url",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@next_public_supabase_anon_key"
+  },
+  "crons": [
+    {
+      "path": "/api/cron/nepse-sync",
+      "schedule": "0 */6 * * *"
+    }
+  ]
+}
 ```
 
-### 2.3 Configure Environment Variables
-```bash
-# Create .env file
-nano .env
-```
+#### **Django Production Settings**
+- **Database**: MySQL configuration
+- **Caching**: Redis for performance
+- **Security**: Production security settings
+- **Logging**: Comprehensive error tracking
 
-Add your Supabase credentials:
-```env
-SECRET_KEY=your-very-secure-secret-key-here
-DEBUG=False
-SUPABASE_DB_NAME=postgres
-SUPABASE_DB_USER=postgres
-SUPABASE_DB_PASSWORD=your-supabase-password
-SUPABASE_DB_HOST=db.your-project-ref.supabase.co
-SUPABASE_DB_PORT=5432
-KAGGLE_USERNAME=your-kaggle-username
-KAGGLE_KEY=your-kaggle-api-key
-```
+#### **Supabase Integration**
+- **Real-time**: Live data subscriptions
+- **Authentication**: User management
+- **API**: Seamless backend connectivity
 
-### 2.4 Run Database Migrations
-```bash
-# Run migrations
-python manage.py makemigrations
-python manage.py migrate
+### 📊 **Analytics and Monitoring**
 
-# Create superuser
-python manage.py createsuperuser
+#### **Vercel Analytics (Automatic)**
+- **User Behavior** - Page views and interactions
+- **Performance** - Core Web Vitals monitoring
+- **Real User Monitoring** - Actual user experience
+- **Custom Events** - NEPSE-specific tracking
 
-# Generate sample data
-python manage.py generate_sample_data --days 30
-```
+#### **Google Analytics (Optional)**
+- **Detailed Insights** - User demographics
+- **Conversion Tracking** - User journey analysis
+- **Custom Dimensions** - Investment metrics
 
-### 2.5 Configure Web App
-1. Go to **Web** tab in PythonAnywhere dashboard
-2. Click **Add a new web app**
-3. Choose **Manual configuration** → **Python 3.10**
-4. Configure WSGI file:
+### 🎯 **Production Features**
 
-```python
-import os
-import sys
+#### **Performance Optimizations:**
+- **Next.js 15** - Latest React framework
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Utility-first styling
+- **Chart.js** - Optimized chart rendering
+- **Lazy Loading** - Performance optimization
 
-path = '/home/pratikshyab/sagarmatha-investments/django-backend'
-if path not in sys.path:
-    sys.path.append(path)
+#### **Security Features:**
+- **Environment Variables** - Secure configuration
+- **CORS Configuration** - Cross-origin security
+- **Input Validation** - Data sanitization
+- **Error Handling** - Graceful error management
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'sagarmatha_backend.settings_pythonanywhere'
+### 🚀 **Deployment Checklist**
 
-from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
-```
+#### **Frontend (Vercel)**
+- [ ] Connect GitHub repository
+- [ ] Configure environment variables
+- [ ] Deploy automatically
+- [ ] Enable Vercel Analytics
+- [ ] Configure custom domain
 
-5. Configure static files:
-   - **URL**: `/static/`
-   - **Directory**: `/home/pratikshyab/sagarmatha-investments/django-backend/staticfiles/`
+#### **Backend (PythonAnywhere)**
+- [ ] Upload django-backend folder
+- [ ] Set up virtual environment
+- [ ] Configure MySQL database
+- [ ] Run migrations
+- [ ] Configure WSGI settings
+- [ ] Set up environment variables
 
-## ⚛️ Step 3: Deploy Next.js Frontend to Vercel
+#### **Database (Supabase)**
+- [ ] Create Supabase project
+- [ ] Configure database schema
+- [ ] Set up authentication
+- [ ] Connect to frontend
+- [ ] Configure real-time features
 
-### 3.1 Prepare Frontend
-```bash
-cd nextjs-app
-npm install
-```
+### 📈 **Live Demo Features**
 
-### 3.2 Configure Environment Variables
-Create `.env.local`:
-```env
-NEXT_PUBLIC_API_URL=https://pratikshyab.pythonanywhere.com/api/v1
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-```
+Once deployed, your platform will have:
+- **Complete NEPSE Analytics** - All chart types and live data
+- **Real-time Updates** - Auto-refresh market data
+- **Interactive Charts** - Zoom, pan, and analyze
+- **Responsive Design** - Works on all devices
+- **Analytics Tracking** - User behavior insights
+- **Production Performance** - Fast and reliable
 
-### 3.3 Deploy to Vercel
-```bash
-# Install Vercel CLI
-npm i -g vercel
+### 🏔️ **Sagarmatha Investments Platform**
 
-# Deploy
-vercel --prod
-```
+Your complete investment analytics platform includes:
+- ✅ **All NEPSE Data Charts** - Line, Bar, Doughnut, Pie, Scatter, Tables
+- ✅ **Live NEPSE Data** - Real-time updates and market statistics
+- ✅ **Next.js & React** - Modern, fast, and responsive
+- ✅ **Django Backend** - Complete API with PythonAnywhere deployment
+- ✅ **Supabase Database** - Scalable data storage and real-time features
+- ✅ **Vercel Analytics** - User behavior tracking and performance monitoring
+- ✅ **Production Ready** - Complete deployment configuration
 
-## 🔧 Step 4: API Endpoints
+---
 
-### 4.1 Available Endpoints
-- **Base URL**: `https://pratikshyab.pythonanywhere.com/api/v1/`
-- **NEPSE Index**: `/index/`
-- **Stocks**: `/stocks/`
-- **Latest Price**: `/stocks/latest_price/?symbol=NICL`
-- **Indices**: `/indices/`
-- **Chart Data**: `/index/chart_data/?days=30`
+**Your Sagarmatha Investments platform is ready for production deployment! 🚀📊**
 
-### 4.2 Test API Endpoints
-```bash
-# Test base API
-curl https://pratikshyab.pythonanywhere.com/api/v1/
-
-# Test latest price endpoint
-curl "https://pratikshyab.pythonanywhere.com/api/v1/stocks/latest_price/?symbol=NICL"
-
-# Test chart data
-curl "https://pratikshyab.pythonanywhere.com/api/v1/index/chart_data/?days=30"
-```
-
-## 📊 Step 5: Features
-
-### 5.1 Frontend Features
-- **Real-time NEPSE Index Display**
-- **Candlestick Charts** (30-day historical data)
-- **Stock Search** by symbol
-- **Market Indices** overview
-- **Top Stocks** display
-- **Responsive Design** for mobile and desktop
-
-### 5.2 Backend Features
-- **REST API** with Django REST Framework
-- **Supabase Database** integration
-- **Latest Price API** by stock symbol
-- **Chart Data API** for candlestick charts
-- **CORS** configured for frontend
-- **Admin Panel** for data management
-
-### 5.3 Database Features
-- **NEPSE Index** historical data
-- **Stock Information** with real-time prices
-- **Market Indices** tracking
-- **Data Update Logs** for monitoring
-
-## 🚀 Step 6: Testing Your Application
-
-### 6.1 Test Backend
-1. Visit: `https://pratikshyab.pythonanywhere.com/api/v1/`
-2. Test admin panel: `https://pratikshyab.pythonanywhere.com/admin/`
-3. Test latest price: `https://pratikshyab.pythonanywhere.com/api/v1/stocks/latest_price/?symbol=NICL`
-
-### 6.2 Test Frontend
-1. Visit your Vercel deployment URL
-2. Check if data loads correctly
-3. Test stock search functionality
-4. Verify candlestick charts display
-
-## 🔧 Step 7: Data Management
-
-### 7.1 Import Real NEPSE Data
-```bash
-# Import from Kaggle dataset
-python manage.py import_kaggle_nepse path/to/kaggle-data.csv
-
-# Generate more sample data
-python manage.py generate_sample_data --days 60
-```
-
-### 7.2 Update Data Regularly
-Set up a scheduled task in PythonAnywhere:
-```bash
-# Run every hour
-0 * * * * cd /home/pratikshyab/sagarmatha-investments/django-backend && source venv/bin/activate && python manage.py update_nepse_data --type all --source sample
-```
-
-## 📱 Step 8: Mobile Responsiveness
-
-The application is fully responsive and works on:
-- **Desktop** browsers
-- **Tablet** devices
-- **Mobile** phones
-- **Progressive Web App** features
-
-## 🎯 Step 9: Performance Optimization
-
-### 9.1 Backend Optimization
-- **Database indexing** for faster queries
-- **Caching** for frequently accessed data
-- **Pagination** for large datasets
-- **API rate limiting** for protection
-
-### 9.2 Frontend Optimization
-- **Code splitting** for faster loading
-- **Image optimization** for charts
-- **Lazy loading** for components
-- **CDN** delivery via Vercel
-
-## 🔒 Step 10: Security
-
-### 10.1 Backend Security
-- **CORS** properly configured
-- **Environment variables** for secrets
-- **Database SSL** connections
-- **Input validation** for API endpoints
-
-### 10.2 Frontend Security
-- **HTTPS** only connections
-- **API key** protection
-- **XSS** prevention
-- **CSRF** protection
-
-## 📈 Step 11: Monitoring
-
-### 11.1 Backend Monitoring
-- **PythonAnywhere** logs
-- **Database** performance monitoring
-- **API** response times
-- **Error** tracking
-
-### 11.2 Frontend Monitoring
-- **Vercel** analytics
-- **User** interactions
-- **Performance** metrics
-- **Error** reporting
-
-## 🎉 Success!
-
-Your complete NEPSE application is now deployed with:
-- ✅ **Supabase Database** with NEPSE data
-- ✅ **PythonAnywhere Backend** with REST API
-- ✅ **Vercel Frontend** with React components
-- ✅ **Candlestick Charts** for data visualization
-- ✅ **Stock Search** by symbol functionality
-- ✅ **Real-time Data** updates
-- ✅ **Mobile Responsive** design
-
-## 🔗 Your Application URLs
-
-- **Frontend**: `https://your-app.vercel.app`
-- **Backend API**: `https://pratikshyab.pythonanywhere.com/api/v1/`
-- **Admin Panel**: `https://pratikshyab.pythonanywhere.com/admin/`
-- **Database**: Supabase Dashboard
-
-## 📞 Support
-
-If you encounter any issues:
-1. Check the logs in PythonAnywhere
-2. Verify Supabase connection
-3. Test API endpoints individually
-4. Check Vercel deployment logs
-
-Your NEPSE application is now live and ready to serve real-time stock market data! 🚀
+The repository contains everything needed for successful deployment across all platforms.
