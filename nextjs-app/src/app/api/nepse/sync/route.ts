@@ -39,7 +39,7 @@ async function syncNEPSEIndices(): Promise<SyncResult> {
     }))
     
     // Store in database
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('nepse_indices')
       .upsert(transformedData, { 
         onConflict: 'symbol,date',
@@ -104,7 +104,7 @@ async function syncNEPSEStocks(): Promise<SyncResult> {
     }))
     
     // Store in database
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('nepse_stocks')
       .upsert(transformedData, { 
         onConflict: 'symbol',
@@ -163,7 +163,7 @@ async function syncNEPSEHistorical(): Promise<SyncResult> {
     }))
     
     // Store in database
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('nepse_index')
       .upsert(transformedData, { 
         onConflict: 'date',
