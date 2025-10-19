@@ -53,7 +53,7 @@ export default function NEPSEDataPage() {
             <p className="text-lg text-gray-600">
               Our NEPSE analytics platform includes multiple chart types for comprehensive market analysis.
             </p>
-          </div>
+              </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Line Charts */}
@@ -71,7 +71,7 @@ export default function NEPSEDataPage() {
                   <li>• Multi-timeframe Views</li>
                 </ul>
               </div>
-            </div>
+                  </div>
             
             {/* Bar Charts */}
             <div className="bg-white rounded-lg shadow-md p-6">
@@ -87,9 +87,9 @@ export default function NEPSEDataPage() {
                   <li>• Performance Distribution</li>
                   <li>• Sector Performance</li>
                 </ul>
-              </div>
-            </div>
-            
+                  </div>
+                </div>
+
             {/* Doughnut Charts */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <div className="text-center">
@@ -105,7 +105,7 @@ export default function NEPSEDataPage() {
                   <li>• Market Share</li>
                 </ul>
               </div>
-            </div>
+                  </div>
             
             {/* Scatter Charts */}
             <div className="bg-white rounded-lg shadow-md p-6">
@@ -121,9 +121,9 @@ export default function NEPSEDataPage() {
                   <li>• Market Relationships</li>
                   <li>• Risk Assessment</li>
                 </ul>
-              </div>
-            </div>
-            
+                  </div>
+                </div>
+
             {/* Pie Charts */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <div className="text-center">
@@ -139,7 +139,7 @@ export default function NEPSEDataPage() {
                   <li>• Investment Categories</li>
                 </ul>
               </div>
-            </div>
+                  </div>
             
             {/* Data Tables */}
             <div className="bg-white rounded-lg shadow-md p-6">
@@ -155,11 +155,11 @@ export default function NEPSEDataPage() {
                   <li>• Performance Metrics</li>
                   <li>• Company Details</li>
                 </ul>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        
+
         {/* Features Overview */}
         <div className="container mx-auto px-4 py-16 bg-white">
           <div className="text-center mb-12">
@@ -167,7 +167,7 @@ export default function NEPSEDataPage() {
             <p className="text-lg text-gray-600">
               Advanced features for comprehensive NEPSE market analysis and investment insights.
             </p>
-          </div>
+              </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
@@ -177,14 +177,14 @@ export default function NEPSEDataPage() {
                 Live market updates with auto-refresh every 2-5 minutes for current market conditions.
               </p>
             </div>
-            
+
             <div className="text-center">
               <div className="text-4xl mb-4">📱</div>
               <h3 className="text-xl font-semibold mb-2">Responsive Design</h3>
               <p className="text-gray-600">
                 Mobile-optimized charts and tables that work perfectly on all devices and screen sizes.
               </p>
-            </div>
+                </div>
             
             <div className="text-center">
               <div className="text-4xl mb-4">🔄</div>
@@ -192,7 +192,7 @@ export default function NEPSEDataPage() {
               <p className="text-gray-600">
                 Zoom, pan, and interact with charts for detailed analysis and custom timeframes.
               </p>
-            </div>
+                </div>
             
             <div className="text-center">
               <div className="text-4xl mb-4">📊</div>
@@ -200,13 +200,13 @@ export default function NEPSEDataPage() {
               <p className="text-gray-600">
                 Analyze data across different time periods: 7D, 30D, 90D, and 1Y for comprehensive insights.
               </p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
       </main>
       
       <Footer />
       <ScrollToTop />
-    </div>
+          </div>
   );
 }

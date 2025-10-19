@@ -74,3 +74,6 @@ if __name__ == "__main__":
         print("\n❌ Database fix failed. Please check the errors above.")
         sys.exit(1)
 
+
+
+

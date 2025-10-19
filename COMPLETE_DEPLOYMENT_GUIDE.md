@@ -46,10 +46,10 @@ Your complete investment analytics platform with Next.js frontend, Django backen
    - Select `nextjs-app` as root directory
 
 2. **Configure Environment Variables**
-   ```env
+```env
    NEXT_PUBLIC_GA_MEASUREMENT_ID=your-ga-measurement-id
    NEXT_PUBLIC_SUPABASE_URL=your-supabase-project-url
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
    NEXT_PUBLIC_API_URL=https://your-backend.pythonanywhere.com/api/v1
    ```
 

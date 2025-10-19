@@ -28,13 +28,13 @@ async function syncNEPSEIndices(): Promise<SyncResult> {
     const indicesData = Array.isArray(result.data.indices) ? result.data.indices : [result.data.indices]
     
     const transformedData = indicesData.map((index: Record<string, unknown>) => ({
-      name: index.name || index.Name || 'NEPSE Index',
-      symbol: index.symbol || index.Symbol || 'NEPSE',
-      current: parseFloat(index.current || index.Current || index.value || 0),
-      change: parseFloat(index.change || index.Change || 0),
-      change_percent: parseFloat(index.change_percent || index.Change_Percent || 0),
-      high_52w: parseFloat(index.high_52w || index.High_52W || 0),
-      low_52w: parseFloat(index.low_52w || index.Low_52W || 0),
+      name: String(index.name || index.Name || 'NEPSE Index'),
+      symbol: String(index.symbol || index.Symbol || 'NEPSE'),
+      current: parseFloat(String(index.current || index.Current || index.value || 0)),
+      change: parseFloat(String(index.change || index.Change || 0)),
+      change_percent: parseFloat(String(index.change_percent || index.Change_Percent || 0)),
+      high_52w: parseFloat(String(index.high_52w || index.High_52W || 0)),
+      low_52w: parseFloat(String(index.low_52w || index.Low_52W || 0)),
       date: new Date().toISOString().split('T')[0]
     }))
     
@@ -88,18 +88,18 @@ async function syncNEPSEStocks(): Promise<SyncResult> {
     const stocksData = Array.isArray(result.data.stocks) ? result.data.stocks : [result.data.stocks]
     
     const transformedData = stocksData.map((stock: Record<string, unknown>) => ({
-      symbol: stock.symbol || stock.Symbol || stock.ticker,
-      company_name: stock.company_name || stock.Company_Name || stock.name || stock.Name,
-      sector: stock.sector || stock.Sector || 'Unknown',
-      current_price: parseFloat(stock.current_price || stock.Current_Price || stock.price || stock.Price || 0),
-      change: parseFloat(stock.change || stock.Change || 0),
-      change_percent: parseFloat(stock.change_percent || stock.Change_Percent || 0),
-      volume: parseInt(stock.volume || stock.Volume || 0),
-      turnover: parseInt(stock.turnover || stock.Turnover || 0),
-      high_52w: parseFloat(stock.high_52w || stock.High_52W || 0),
-      low_52w: parseFloat(stock.low_52w || stock.Low_52W || 0),
-      market_cap: stock.market_cap || stock.Market_Cap || '0B',
-      pe_ratio: parseFloat(stock.pe_ratio || stock.PE_Ratio || 0),
+      symbol: String(stock.symbol || stock.Symbol || stock.ticker),
+      company_name: String(stock.company_name || stock.Company_Name || stock.name || stock.Name),
+      sector: String(stock.sector || stock.Sector || 'Unknown'),
+      current_price: parseFloat(String(stock.current_price || stock.Current_Price || stock.price || stock.Price || 0)),
+      change: parseFloat(String(stock.change || stock.Change || 0)),
+      change_percent: parseFloat(String(stock.change_percent || stock.Change_Percent || 0)),
+      volume: parseInt(String(stock.volume || stock.Volume || 0)),
+      turnover: parseInt(String(stock.turnover || stock.Turnover || 0)),
+      high_52w: parseFloat(String(stock.high_52w || stock.High_52W || 0)),
+      low_52w: parseFloat(String(stock.low_52w || stock.Low_52W || 0)),
+      market_cap: String(stock.market_cap || stock.Market_Cap || '0B'),
+      pe_ratio: parseFloat(String(stock.pe_ratio || stock.PE_Ratio || 0)),
       last_trade_time: new Date().toISOString()
     }))
     
@@ -153,13 +153,13 @@ async function syncNEPSEHistorical(): Promise<SyncResult> {
     const historicalData = Array.isArray(result.data.historical) ? result.data.historical : [result.data.historical]
     
     const transformedData = historicalData.map((day: Record<string, unknown>) => ({
-      date: day.date || day.Date || new Date().toISOString().split('T')[0],
-      open: parseFloat(day.open || day.Open || 0),
-      high: parseFloat(day.high || day.High || 0),
-      low: parseFloat(day.low || day.Low || 0),
-      close: parseFloat(day.close || day.Close || 0),
-      volume: parseInt(day.volume || day.Volume || 0),
-      turnover: parseInt(day.turnover || day.Turnover || 0)
+      date: String(day.date || day.Date || new Date().toISOString().split('T')[0]),
+      open: parseFloat(String(day.open || day.Open || 0)),
+      high: parseFloat(String(day.high || day.High || 0)),
+      low: parseFloat(String(day.low || day.Low || 0)),
+      close: parseFloat(String(day.close || day.Close || 0)),
+      volume: parseInt(String(day.volume || day.Volume || 0)),
+      turnover: parseInt(String(day.turnover || day.Turnover || 0))
     }))
     
     // Store in database

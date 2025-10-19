@@ -99,11 +99,11 @@ export default function NEPSEComprehensiveDashboard() {
     const historicalData = data.historical.slice(0, selectedTimeframe).reverse();
     
     return {
-      labels: historicalData.map(item => new Date(item.date).toLocaleDateString()),
+      labels: historicalData.map(item => new Date(String(item.date)).toLocaleDateString()),
       datasets: [
         {
           label: 'NEPSE Index',
-          data: historicalData.map(item => item.close),
+          data: historicalData.map(item => Number(item.close)),
           borderColor: 'rgb(59, 130, 246)',
           backgroundColor: 'rgba(59, 130, 246, 0.1)',
           tension: 0.4,
@@ -111,7 +111,7 @@ export default function NEPSEComprehensiveDashboard() {
         },
         {
           label: 'Volume',
-          data: historicalData.map(item => item.volume),
+          data: historicalData.map(item => Number(item.volume)),
           borderColor: 'rgb(34, 197, 94)',
           backgroundColor: 'rgba(34, 197, 94, 0.1)',
           tension: 0.4,
@@ -129,11 +129,11 @@ export default function NEPSEComprehensiveDashboard() {
     const historicalData = data.historical.slice(0, selectedTimeframe).reverse();
     
     return {
-      labels: historicalData.map(item => new Date(item.date).toLocaleDateString()),
+      labels: historicalData.map(item => new Date(String(item.date)).toLocaleDateString()),
       datasets: [
         {
           label: 'Volume',
-          data: historicalData.map(item => item.volume),
+          data: historicalData.map(item => Number(item.volume)),
           backgroundColor: 'rgba(34, 197, 94, 0.8)',
           borderColor: 'rgb(34, 197, 94)',
           borderWidth: 1,
@@ -154,7 +154,7 @@ export default function NEPSEComprehensiveDashboard() {
     if (!data?.stocks) return null;
     
     const sectorCounts = data.stocks.reduce((acc, stock) => {
-      acc[stock.sector] = (acc[stock.sector] || 0) + 1;
+      acc[String(stock.sector)] = (acc[String(stock.sector)] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
     
